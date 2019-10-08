@@ -19,7 +19,7 @@
 			display: block;
 			position: absolute;
 			top: 100px;
-			left: 0px;
+			left: 0;
 		}
 		
 		body {
@@ -35,7 +35,7 @@
 	<!-- BEGIN JAVASCRIPT -->
 	<script>
 		(function(){
-			'use strict'
+			'use strict';
 			/* global jQuery */
 
 			// jQuery stuff setup for you
@@ -52,6 +52,7 @@
             var directionY;
             var randNum = Math.random() * boardWidth;
             var randNumY = Math.random() * boardHeight;
+            var colorStr = "rgb(colorR, colorG, colorB)";
                         
             position = 0;
             positionY = 0;
@@ -61,21 +62,22 @@
             directionY = 1;
             box.css('left', position);
             box.css('top', positionY);
+//            box.css('background-color', colorStr);
             box.text(points);
 
 			
 			function update() {
 				// TODO 3 / 6 / 7 / 8
 			    position += speed * direction;    // increment position by speed on every update
-                console.log("new position: " + position);
+//                console.log("new position: " + position);
                 positionY += speed * directionY;
-                console.log("new positionY: " + positionY + " also direction " + directionY);
+//                console.log("new positionY: " + positionY + " also direction " + directionY);
                 
                 if(position > boardWidth) {
-                    console.log("Right Wall Hit");
+//                    console.log("Right Wall Hit");
                     direction = -1;
                 } else if(position < 0) {
-                    console.log("Left Wall Hit");
+//                    console.log("Left Wall Hit");
                     direction = 1;
                 }
                 if(positionY > boardHeight) {
@@ -87,7 +89,8 @@
                 }
                 
                 box.css('left', position);// set the 'left' CSS property of the box to the new value of position
-                box.css('top', positionY);			
+                box.css('top', positionY);
+//                box.css('background-color', colorStr);
 			}
 
 			
@@ -97,19 +100,27 @@
                 box.text(points);      // update the new points total displayed by the box
 			    position = randNum;// reset the position of the box to 0
                 positionY = randNumY;
-                speed += 3;    // increase the speed of the box on every click
+                speed += 3; // increase the speed of the box on every click
 			}
 			
 			function getRandomColor() {
-			    var colorStr = "rgb(50, 25, 250)";
-                box.css('background-color', colorStr);			    
-			}
+			   var colorR = Math.floor(Math.random() * 255);
+			   var colorG = Math.floor(Math.random() * 255);
+			   var colorB = Math.floor(Math.random() * 255);
+
+			   colorStr = "rgb(" + colorR + "," + colorG + "," + colorB + ")";
+			   box.css('background-color', colorStr);
+			   console.log(colorStr);
+		   }
+
+			
 
 
 			//this executes the update function code every 50 milliseconds
 			setInterval(update, 50);
 			// this executes the handleBoxClick function code every time the box is clicked on
 			box.on('click', handleBoxClick);
+			box.on('click', getRandomColor);
 		})();
 	</script>
 </body>
