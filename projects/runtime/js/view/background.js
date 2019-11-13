@@ -24,10 +24,10 @@ var background = function (window) {
         
         // container which will be returned
         var background;
-        var tree;
         
         // ANIMATION VARIABLES HERE:
-        
+        var tree;
+        var buildings = [];
      
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
@@ -57,10 +57,21 @@ var background = function (window) {
         
             
             // TODO: 5 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
-            
+            var buildingHeight = 475;
+            var building;
+            for (var i = 0; i < 5; ++i) {
+                building = draw.bitmap('img/building.png');
+                building.x = 300 * i;
+                building.y = groundY - buildingHeight;
+                background.addChild(building);
+                buildings.push(building);
+            }
             
             // TODO 4: Part 1 - Add a tree
-            
+            tree = draw.bitmap('img/tree.png');
+            tree.x = 1000;
+            tree.y = 200;
+            background.addChild(tree);
             
         } // end of render function - DO NOT DELETE
         
@@ -74,12 +85,22 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 4: Part 2 - Move the tree!
-            
+            tree.x = tree.x - 7;
+            if (tree.x < -200) {
+                tree.x = canvasWidth;
+            } 
             
             // TODO 5: Part 2 - Parallax
-            
-
-        } // end of update function - DO NOT DELETE
+            for (var i = 0; i < buildings.length; ++i) {
+                var building = buildings[i];
+                building.x = building.x -1;
+                if (building.x < -200) {
+                    building.x = canvasWidth;
+                }
+            }
+    
+        } 
+    // end of update function - DO NOT DELETE
         
         
         

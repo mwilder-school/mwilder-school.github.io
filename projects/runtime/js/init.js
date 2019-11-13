@@ -24,7 +24,7 @@
         playerManager, 
         particleManager;
     
-    var debugHalleHitZones = false;
+    var debugHalleHitZones = true;
 
     space = app.space;
     rules = app.rules,
@@ -77,7 +77,8 @@
     window.hud = hud;
 
     // TODO 6 : create game manager
-
+    var game = opspark.createGameManager(app, hud);
+    opspark.runLevelInGame(game);
 
 };
 
