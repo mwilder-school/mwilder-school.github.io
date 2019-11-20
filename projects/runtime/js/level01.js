@@ -14,25 +14,50 @@ var level01 = function (window) {
         var levelData = {
             name: "Robot Romp",
             number: 1, 
-            speed: -3,
+            speed: -5,
             gameItems: [
                 {type: 'sawblade',x:400,y:groundY},
                 {type: 'sawblade',x:600,y:groundY},
-                {type: 'sawblade',x:900,y:groundY}
+                {type: 'sawblade',x:900,y:groundY},
+                {type: 'sawblade',x:1150,y:300},
+                {type: 'sawblade',x:1350,y:320},
+                {type: 'sawblade',x:1050,y:400},
+                {type: 'blackhole',x:1000,y:300}
             ]
         };
         window.levelData = levelData;
         // set this to true or false depending on if you want to see hitzones
-        game.setDebugMode(true);
+        game.setDebugMode(false);
 
         // BEGIN EDITING YOUR CODE HERE
-        var hitZoneSize = 25;
-        var damageFromObstacle = 10;
-        var myObstacle = game.createObstacle(hitZoneSize, damageFromObstacle);
-        myObstacle.x = 1000;
-        myObstacle.y = 350;
-        game.addGameItem(myObstacle);
-
+        for (var i = 0; i < levelData.gameItems.length; i++) {
+            var gameItem = levelData.gameItems[i];
+            createSawBlade(gameItem.x, gameItem.y);
+            
+        }
+        function createSawBlade(x, y) {
+            var hitZoneSize = 25;
+            var damageFromObstacle = 10;
+            var myObstacle = game.createObstacle(hitZoneSize, damageFromObstacle);
+            myObstacle.x = x;
+            myObstacle.y = y;
+            game.addGameItem(myObstacle);
+            var obstacleImage = draw.bitmap('img/sawblade.png');
+            myObstacle.addChild(obstacleImage);
+            obstacleImage.x = -25;
+            obstacleImage.y = -25;
+        }
+        function createBlackHole(x, y) {
+            var hitZoneSize = 25
+            var damageFromObstacle = 100;
+            var myObstacle = game.createObstacle(hitZoneSize, damageFromObstacle);
+            myObstacle.x = x;
+            myObstacle.y = y;
+            game.addGameItem(myObstacle);
+            var obstacleImage = draw.circle(100, 'black', 'lightGray', 2);
+            myObstacle.addChild(obstacleImage);
+        }
+    
     }
 };
 
